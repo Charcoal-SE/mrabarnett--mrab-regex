@@ -125,23 +125,3 @@ jobs:
         with:
           name: regex-files
           path: wheelhouse/*.whl
-
-  # Upload to PyPI
-  upload_pypi:
-    name: Publish to PyPI
-    needs: [build_wheels, build_in_manylinux2010, build_arch_wheels]
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: regex-files
-          path: dist
-
-      - name: Upload to PyPI
-        uses: pypa/gh-action-pypi-publish@master
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_TOKEN }}
-          skip_existing: true
-          verbose: true
